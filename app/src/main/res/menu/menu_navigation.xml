@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_menu_nav_item"
+        android:title="@string/home_menu_nav_title"
+        />
+
+    <item
+        android:id="@+id/fav_stops_nav_item"
+        android:title="@string/fav_stops_menu_nav_title"
+        />
+
+    <item
+        android:id="@+id/fav_buses_nav_item"
+        android:title="@string/fav_buses_menu_nav_title"
+        />
+
+    <item
+        android:id="@+id/fav_trolleybuses_nav_item"
+        android:title="@string/fav_trolleybuses_menu_nav_title"
+        />
+
+    <item
+        android:id="@+id/fav_trams_nav_item"
+        android:title="@string/fav_trams_menu_nav_title"
+        />
+
+</menu>

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Minsk Scoreboard</string>
+    <string name="home_menu_nav_title">Home</string>
+    <string name="fav_stops_menu_nav_title">Favorite stops</string>
+    <string name="fav_buses_menu_nav_title">Favorite buses</string>
+    <string name="fav_trolleybuses_menu_nav_title">Favorite trolleybuses</string>
+    <string name="fav_trams_menu_nav_title">Favorite trams</string>
+
+    <string name="view_navigation_open" translatable="false">Open</string>
+    <string name="view_navigation_close" translatable="false">Close</string>
+
 </resources>
