@@ -1,6 +1,7 @@
 package by.liauko.minskscoreboard.fragment;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.webkit.WebViewClient;
 import by.liauko.minskscoreboard.R;
 
 public class WebViewFragment extends Fragment {
+    private SharedPreferences mPreferences;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,6 +28,11 @@ public class WebViewFragment extends Fragment {
         WebView webView = (WebView) view.findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://www.minsktrans.by/lookout_yard/");
+        String url = mPreferences.getString("url", "http://www.minsktrans.by/lookout_yard/");
+        webView.loadUrl(url);
+    }
+
+    public void setPreferences(SharedPreferences mPreferences) {
+        this.mPreferences = mPreferences;
     }
 }
