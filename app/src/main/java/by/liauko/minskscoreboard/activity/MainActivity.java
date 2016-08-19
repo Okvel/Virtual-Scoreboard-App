@@ -1,5 +1,6 @@
 package by.liauko.minskscoreboard.activity;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -7,16 +8,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import by.liauko.minskscoreboard.R;
+import by.liauko.minskscoreboard.fragment.WebViewFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar mToolbar;
-    private WebView mWebView;
     private DrawerLayout mDrawerLayout;
+    private Fragment mWebViewFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +24,17 @@ public class MainActivity extends AppCompatActivity
         setTheme(R.style.DefaultTheme);
         setContentView(R.layout.activity_main);
 
+        initFragments();
+        initMainFrame();
         initToolbar();
         initNavigationView();
-        initWebView();
+    }
+
+    private void initFragments() {
+        mWebViewFragment = new WebViewFragment();
+        getFragmentManager().beginTransaction()
+                .addToBackStack(null)
+                .commit();
     }
 
     private void initToolbar() {
@@ -45,11 +53,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void initWebView() {
-        mWebView = (WebView) findViewById(R.id.web_view);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.setWebViewClient(new WebViewClient());
-        loadHomePage();
+    private void initMainFrame() {
+        getFragmentManager().beginTransaction()
+                .add(R.id.main_frame, mWebViewFragment)
+                .commit();
     }
 
     @Override
@@ -57,15 +64,14 @@ public class MainActivity extends AppCompatActivity
         boolean result = false;
         switch (item.getItemId()) {
             case R.id.home_menu_nav_item:
-                loadHomePage();
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.main_frame, mWebViewFragment)
+                        .commit();
                 result = true;
+                break;
         }
         mDrawerLayout.closeDrawers();
 
         return result;
-    }
-
-    private void loadHomePage() {
-        mWebView.loadUrl("http://www.minsktrans.by/lookout_yard/");
     }
 }
