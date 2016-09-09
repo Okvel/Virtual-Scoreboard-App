@@ -1,6 +1,7 @@
 package by.liauko.minskscoreboard.activity;
 
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.webkit.WebView;
 
 import by.liauko.minskscoreboard.R;
+import by.liauko.minskscoreboard.database.CustomDBHelper;
 import by.liauko.minskscoreboard.fragment.WebViewFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -20,16 +22,24 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout mDrawerLayout;
     private WebViewFragment mWebViewFragment;
 
+    private SQLiteDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.DefaultTheme);
         setContentView(R.layout.activity_main);
 
+        initDatabase();
         initFragments();
         initMainFrame();
         initToolbar();
         initNavigationView();
+    }
+
+    private void initDatabase() {
+        CustomDBHelper dbHelper = new CustomDBHelper(getApplicationContext());
+        database = dbHelper.getWritableDatabase();
     }
 
     @Override
