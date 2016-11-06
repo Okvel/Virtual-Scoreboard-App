@@ -16,8 +16,7 @@ import by.liauko.minskscoreboard.R;
 import by.liauko.minskscoreboard.database.CustomDBHelper;
 import by.liauko.minskscoreboard.fragment.WebViewFragment;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private WebViewFragment mWebViewFragment;
@@ -76,28 +75,28 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                boolean result = false;
+                switch (item.getItemId()) {
+                    case R.id.home_menu_nav_item:
+                        getFragmentManager().beginTransaction()
+                                .replace(R.id.main_frame, mWebViewFragment)
+                                .commit();
+                        result = true;
+                        break;
+                }
+                mDrawerLayout.closeDrawers();
+
+                return result;
+            }
+        });
     }
 
     private void initMainFrame() {
         getFragmentManager().beginTransaction()
                 .add(R.id.main_frame, mWebViewFragment)
                 .commit();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        boolean result = false;
-        switch (item.getItemId()) {
-            case R.id.home_menu_nav_item:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.main_frame, mWebViewFragment)
-                        .commit();
-                result = true;
-                break;
-        }
-        mDrawerLayout.closeDrawers();
-
-        return result;
     }
 }
